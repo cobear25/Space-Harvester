@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public ShipController shipController;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (shipController.paused) return;
         transform.position += transform.right * Time.deltaTime * 15;
     }
 

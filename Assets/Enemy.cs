@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (ship.GetComponent<ShipController>().paused) return;
         transform.Rotate(0, 0, Random.Range(-55, 55) * Time.deltaTime);
         if (ship != null)
         {

@@ -15,14 +15,23 @@ public class ShipController : MonoBehaviour
     public TextMeshProUGUI cargoText;
     public TextMeshProUGUI totalHarvestText;
     public RectTransform speedMeter;
+    public GameObject mothershipUpPanel;
+    public GameObject mothershipDownPanel;
+    public GameObject mothershipUpLeftPanel;
+    public GameObject mothershipUpRightPanel;
+    public GameObject mothershipDownLeftPanel;
+    public GameObject mothershipDownRightPanel;
     public GameObject bulletPrefab;
     public GameObject enemyPrefab;
     public GameObject gameOverPanel;
     public AudioClip pewSound;
     public AudioClip explosionSound;
+    public GameController gameController;
+    public Base mothership;
 
     public int maxCargo = 20;
     public int totalHarvest = 0;
+    public bool paused = false;
     Rigidbody2D rb;
     public List<Vector2> lastPositions = new List<Vector2>();
     public List<Vector3> lastRotations = new List<Vector3>();
@@ -43,6 +52,21 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         if (dead) return;
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            paused = !paused;
+            if (paused)
+            {
+                Time.timeScale = 0;
+                gameController.audioSource.Pause();
+            }
+            else
+            {
+                Time.timeScale = 1;
+                gameController.audioSource.UnPause();
+            }
+        }
+        if (paused) return;
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
             speed += Time.deltaTime * acceleration;
             speedMeter.localScale = new Vector2(1, speed / maxSpeed);
@@ -53,9 +77,10 @@ public class ShipController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject bullet = Instantiate(bulletPrefab);
+            Bullet bullet = Instantiate(bulletPrefab).GetComponent<Bullet>();
             bullet.transform.position = transform.position + (transform.right * 0.5f);
             bullet.transform.eulerAngles = transform.eulerAngles;
+            bullet.shipController = this;
             GetComponent<AudioSource>().PlayOneShot(pewSound);
         }
         if (speed > 0) 
@@ -105,6 +130,58 @@ public class ShipController : MonoBehaviour
                 plants[i].transform.eulerAngles = new Vector3(0, 0, plants[i - 1].lastRotations[0].z + plants[i].noise);
             }
         }
+
+        mothershipUpLeftPanel.SetActive(false);
+        mothershipUpRightPanel.SetActive(false);
+        mothershipDownLeftPanel.SetActive(false);
+        mothershipDownRightPanel.SetActive(false);
+        mothershipDownPanel.SetActive(false);
+        mothershipUpPanel.SetActive(false);
+        if (!mothership.isVisible)
+        {
+            // get the x and y distance to the mothership
+            var diffX = transform.position.x - mothership.transform.position.x;
+            var diffY = transform.position.y - mothership.transform.position.y;
+            // check which distance is further in order to show the right UI
+            if (Mathf.Abs(diffX) > Mathf.Abs(diffY))
+            {
+                // check horizontal
+                if (diffX > 0)
+                {
+                    if (diffY > 0)
+                    {
+                        mothershipDownLeftPanel.SetActive(true);
+                    }
+                    else
+                    {
+                        mothershipUpLeftPanel.SetActive(true);
+                    }
+                }
+                else
+                {
+                    if (diffY > 0)
+                    {
+                        mothershipDownRightPanel.SetActive(true);
+                    }
+                    else
+                    {
+                        mothershipUpRightPanel.SetActive(true);
+                    }
+                }
+            }
+            else 
+            {
+                // check vertical
+                if (diffY > 0)
+                {
+                    mothershipDownPanel.SetActive(true);
+                }
+                else
+                {
+                    mothershipUpPanel.SetActive(true);
+                }
+            }
+        }
     }
 
     void FixedUpdate()
@@ -147,7 +224,7 @@ public class ShipController : MonoBehaviour
     {
         maxCargo += 5;
         cargoText.text = $"Cargo: {plants.Count}/{maxCargo}";
-        GetComponent<AudioSource>().PlayOneShot(explosionSound);
+        GetComponent<AudioSource>().PlayOneShot(explosionSound, 0.5f);
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -158,7 +235,7 @@ public class ShipController : MonoBehaviour
             GetComponent<ParticleSystem>().Play();
             GetComponent<PolygonCollider2D>().enabled = false;
             other.gameObject.GetComponent<Enemy>().Kill();
-            GetComponent<AudioSource>().PlayOneShot(explosionSound);
+            GetComponent<AudioSource>().PlayOneShot(explosionSound, 0.5f);
             Invoke("ShowGameOver", 1);
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Base : MonoBehaviour
 {
+    public bool isVisible = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +23,13 @@ public class Base : MonoBehaviour
             ShipController shipController = other.GetComponent<ShipController>();
             shipController.UnloadCargo(transform);
         }
+    }
+
+    private void OnBecameInvisible() {
+        isVisible = false;
+    }
+
+    private void OnBecameVisible() {
+        isVisible = true;
     }
 }

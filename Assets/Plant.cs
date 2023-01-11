@@ -39,6 +39,10 @@ public class Plant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (ship != null && ship.paused)
+        {
+            return;
+        }
         lastPositions.Add(transform.position);
         lastRotations.Add(transform.eulerAngles);
         if (lastPositions.Count > 2)
@@ -53,7 +57,7 @@ public class Plant : MonoBehaviour
             if (Vector2.Distance(transform.position, homeBase.position) < 0.1f)
             {
                 audioSource.PlayOneShot(softSound);
-                Destroy(gameObject, 0.2f);
+                Destroy(gameObject, 0.1f);
             }
         }
     }
