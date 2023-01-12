@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6229c83e7627249719c2edbf1bda5585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipController: {fileID: 0}
 --- !u!50 &6550646118714474198
 Rigidbody2D:
   serializedVersion: 4
@@ -144,5 +145,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.28}
   m_EdgeRadius: 0

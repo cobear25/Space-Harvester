@@ -19,6 +19,7 @@ public class Plant : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public int phase = 1;
     ShipController ship;
+    public Planet planet;
     public List<Vector2> lastPositions = new List<Vector2>();
     public List<Vector3> lastRotations = new List<Vector3>();
 
@@ -116,6 +117,7 @@ public class Plant : MonoBehaviour
                 ship = other.GetComponent<ShipController>();
                 ship.plants.Add(this);
                 ship.cargoText.text = $"Cargo: {ship.plants.Count}/{ship.maxCargo}";
+                planet.PlantRemoved();
             }
             // shake
             audioSource.PlayOneShot(softSound);

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5404529644910078590}
   - component: {fileID: 7115392391514187481}
   - component: {fileID: 7358829839116832523}
+  - component: {fileID: 8997752885857341607}
   m_Layer: 7
   m_Name: Ship
   m_TagString: Untagged
@@ -138,16 +139,16 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.375, y: 0.049999997}
       - {x: 0.315, y: 0.08}
-      - {x: -0.145, y: 0.26999998}
-      - {x: -0.255, y: 0.32999998}
-      - {x: -0.375, y: 0.32999998}
+      - {x: -0.139004, y: 0.30297768}
+      - {x: -0.252002, y: 0.35098583}
+      - {x: -0.3720019, y: 0.38696152}
       - {x: -0.375, y: 0.19999999}
       - {x: -0.325, y: 0.049999997}
       - {x: -0.33499998, y: -0.089999996}
       - {x: -0.375, y: -0.22}
-      - {x: -0.375, y: -0.32999998}
-      - {x: -0.265, y: -0.32999998}
-      - {x: 0.24499999, y: -0.099999994}
+      - {x: -0.3779981, y: -0.36297768}
+      - {x: -0.259004, y: -0.3569818}
+      - {x: 0.253994, y: -0.123983815}
       - {x: 0.375, y: -0.06}
 --- !u!114 &3678541681082751291
 MonoBehaviour:
@@ -168,13 +169,22 @@ MonoBehaviour:
   cargoText: {fileID: 0}
   totalHarvestText: {fileID: 0}
   speedMeter: {fileID: 0}
+  mothershipUpPanel: {fileID: 0}
+  mothershipDownPanel: {fileID: 0}
+  mothershipUpLeftPanel: {fileID: 0}
+  mothershipUpRightPanel: {fileID: 0}
+  mothershipDownLeftPanel: {fileID: 0}
+  mothershipDownRightPanel: {fileID: 0}
   bulletPrefab: {fileID: 0}
   enemyPrefab: {fileID: 0}
   gameOverPanel: {fileID: 0}
   pewSound: {fileID: 8300000, guid: 76569db1725684041b6b1100beb2ec8c, type: 3}
   explosionSound: {fileID: 8300000, guid: 04cd46237369c49f2aa3a7d0ed22dcf0, type: 3}
+  gameController: {fileID: 0}
+  mothership: {fileID: 0}
   maxCargo: 20
   totalHarvest: 0
+  paused: 0
   lastPositions: []
   lastRotations: []
   lastPos: {x: 0, y: 0}
@@ -5054,3 +5064,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &8997752885857341607
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3678541681082751281}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.33, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.14

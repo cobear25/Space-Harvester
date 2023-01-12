@@ -102,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.51
 --- !u!114 &6504874760978011182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantPrefab: {fileID: 3941869617007585115, guid: ad86e2451e035418eac04154be6e33ee, type: 3}
+  plantCount: 0
 --- !u!50 &1605618951240884750
 Rigidbody2D:
   serializedVersion: 4
